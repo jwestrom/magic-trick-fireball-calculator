@@ -4,6 +4,15 @@ function AddButtonEventListener() {
     })
 }
 
+function AddChangeEventListener() {
+    let inputs = document.getElementsByTagName("input");
+    for(let input of inputs) {
+        input.addEventListener("change", function() {
+            CalculateFireball();
+        })
+    }
+}
+
 function CalculateFireball() {
     let cl = document.getElementById("caster_level").value;
     let extra_damage = document.getElementById("damage_per_dice").value;
