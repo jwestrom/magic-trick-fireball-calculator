@@ -2,6 +2,10 @@ function AddButtonEventListener() {
     document.getElementById("calculate_fireball").addEventListener("click", function() {
         CalculateFireball();
     })
+
+    document.getElementById("roll_fireball").addEventListener("click", function() {
+        RollFireballs();
+    })
 }
 
 function AddChangeEventListener() {
@@ -37,7 +41,7 @@ function CalculateFireball() {
     document.getElementById("total_damage").textContent = `${fireball_damage_dice * fireballs}d6 + ${extra_damage * fireballs}`
 
     let min_damage = fireballs * fireball_damage_dice + fireballs * extra_damage
-    let avg_damage = fireballs * fireball_damage_dice * 3.5 + fireballs * extra_damage
+    let avg_damage = Math.floor(fireballs * fireball_damage_dice * 3.5 + fireballs * extra_damage)
     let max_damage = fireballs * fireball_damage_dice * 6 + fireballs * extra_damage
 
     if (maximize) {
@@ -49,4 +53,34 @@ function CalculateFireball() {
         document.getElementById("average_damage").textContent = avg_damage;
         document.getElementById("maximum_damage").textContent = max_damage;
     }
+}
+
+function RollFireballs() {
+    let damage_input = document.getElementById("total_damage").textContent;
+    let dice = parseInt(damage_input.split("d")[0]);
+    let bonus_damage = parseInt(damage_input.split("+ ")[1]);
+
+    let rolls = [];
+
+    if(document.getElementById("maximize_spell").checked) {
+        for(let i = 0; i < dice; i++) {
+            rolls.push(6)
+        }
+    } else {
+        for(let i = 0; i < dice; i++) {
+            rolls.push(RollD6())
+        }
+    }
+
+    
+
+    document.getElementById("rolls").textContent = rolls.join(", ");
+
+    let total_rolled_damage = rolls.reduce((partialSum, a) => partialSum + a, 0);
+
+    document.getElementById("total_rolled_damage").textContent = total_rolled_damage + bonus_damage
+}
+
+function RollD6(){
+    return Math.floor(Math.random() * 6) + 1;
 }

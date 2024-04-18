@@ -39,9 +39,18 @@
             <p>Average damage: <span id="average_damage"></span></p>
             <p>Maximum damage: <span id="maximum_damage"></span></p>
         </div>
+        <div id="roll">
+            <h2>Roll</h2>
+            <sub>Roll the fireball defined above</sub>
+            <br>
+            <button type="button" id="roll_fireball">Roll</button>
+            <p>Total Damage: <span id="total_rolled_damage"></span></p>
+            <textarea name="rolls" id="rolls" cols="30" rows="10" disabled></textarea>
+        </div>
         <script>
             AddButtonEventListener();
             AddChangeEventListener();
+            CalculateFireball();
         </script>
     </body>
 </html>

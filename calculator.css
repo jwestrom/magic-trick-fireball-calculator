@@ -32,3 +32,8 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance:textfield; /* Firefox */
 }
+
+textarea {
+    resize: none;
+    margin-top: 1em;
+}
