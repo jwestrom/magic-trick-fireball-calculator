@@ -11,7 +11,7 @@
     <body>
         <h1>Magic Trick Fireball calculator</h1>
         <p>Calculator for Concentrated Fire Cluster Bomb Fireballs. 
-            Min, avg and max damage calculations assumes all fireballs are placed on top of each other and are 5ft wide.</p>
+            Min, avg and max damage calculations assumes all fireballs are placed on top of each other.</p>
         <hr>
         <form id="fireball_form" action="">
             <label for="caster_level">Caster Level:</label>
@@ -28,6 +28,13 @@
         </form>
         <div id="fireballs">
             <h2>Fireballs</h2>
+            <label for="fireball_size">Fireball radius:</label>
+            <select name="fireball_size" id="fireball_size">
+                <option selected value="0">5ft</option>
+                <option value="1">10ft</option>
+                <option disabled value="2">15ft</option>
+                <option disabled value="3">20ft</option>
+            </select>
             <p>Total fireballs: <span id="total_fireballs"></span></p>
             <p>Damage per fireball: <span id="damage_per_fireball"></span></p>
             <p>Total damage: <span id="total_damage"></span></p>
@@ -49,7 +56,8 @@
         </div>
         <script>
             AddButtonEventListener();
-            AddChangeEventListener();
+            AddInputChangeEventListener();
+            ToggleSizeOptions();
             CalculateFireball();
         </script>
     </body>

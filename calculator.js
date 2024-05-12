@@ -8,8 +8,9 @@ function AddButtonEventListener() {
     })
 }
 
-function AddChangeEventListener() {
-    let inputs = document.getElementsByTagName("input");
+function AddInputChangeEventListener() {
+    let inputs = Array.from(document.getElementsByTagName("input"));
+    inputs.push(document.getElementById("fireball_size"))
     for(let input of inputs) {
         input.addEventListener("change", function() {
             CalculateFireball();
@@ -17,19 +18,43 @@ function AddChangeEventListener() {
     }
 }
 
+function ToggleSizeOptions() {
+    document.getElementById("widen_spell").addEventListener("change", function() {
+        let select = document.getElementById("fireball_size");
+        let options = select.options;
+
+        if(this.checked) {
+            for(let i = 2; i < options.length; i++) {
+                options[i].disabled = false
+            }
+            
+        } else {
+            for(let i = 2; i < options.length; i++) {
+                options[i].disabled = true
+            }
+            select.value = 0;
+        }
+        CalculateFireball();
+    })
+}
+
 function CalculateFireball() {
     let cl = document.getElementById("caster_level").value;
     let extra_damage = document.getElementById("damage_per_dice").value;
-    let widen = document.getElementById("widen_spell").checked;
     let empower = document.getElementById("empower_spell").checked;
+    let widen = document.getElementById("widen_spell").checked;
     let maximize = document.getElementById("maximize_spell").checked;
-
-    let fireballs = Math.floor(cl/2);
-    let fireball_damage_dice = 2;
+    let size_damage_decrease = document.getElementById("fireball_size").value;
+    let fireball_base_damage = 3;
 
     if (widen) {
-        fireball_damage_dice = fireball_damage_dice * 2;
+        fireball_base_damage = 5;
     }
+
+
+    let fireballs = Math.floor(cl/2);
+    let fireball_damage_dice = fireball_base_damage - size_damage_decrease;
+
 
     if (empower) {
         extra_damage = Math.floor(extra_damage * 1.5);
