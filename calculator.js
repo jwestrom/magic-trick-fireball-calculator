@@ -61,13 +61,15 @@ function CalculateFireball() {
         fireball_damage_dice = Math.floor(fireball_damage_dice * 1.5);
     }
 
-    document.getElementById("total_fireballs").textContent = fireballs;
-    document.getElementById("damage_per_fireball").textContent = `${fireball_damage_dice}d6 + ${extra_damage}`;
-    document.getElementById("total_damage").textContent = `${fireball_damage_dice * fireballs}d6 + ${extra_damage * fireballs}`
+    let fireball_bonus_damage = fireball_damage_dice * extra_damage;
 
-    let min_damage = fireballs * fireball_damage_dice + fireballs * extra_damage
-    let avg_damage = Math.floor(fireballs * fireball_damage_dice * 3.5 + fireballs * extra_damage)
-    let max_damage = fireballs * fireball_damage_dice * 6 + fireballs * extra_damage
+    document.getElementById("total_fireballs").textContent = fireballs;
+    document.getElementById("damage_per_fireball").textContent = `${fireball_damage_dice}d6 + ${fireball_bonus_damage}`;
+    document.getElementById("total_damage").textContent = `${fireball_damage_dice * fireballs}d6 + ${fireball_bonus_damage * fireballs}`
+
+    let min_damage = fireballs * fireball_damage_dice + fireballs * fireball_bonus_damage
+    let avg_damage = Math.floor(fireballs * fireball_damage_dice * 3.5 + fireballs * fireball_bonus_damage)
+    let max_damage = fireballs * fireball_damage_dice * 6 + fireballs * fireball_bonus_damage
 
     if (maximize) {
         document.getElementById("minimum_damage").textContent = max_damage;
